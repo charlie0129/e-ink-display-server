@@ -1,21 +1,46 @@
 package com.einkdisplay.einkdisplayserver;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.Vector;
 
 @RestController
 public class MessageController {
-//    private final AtomicLong counter = new AtomicLong(0);
-    private final UserMessages userMessages = new UserMessages();
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping("/message")
-    public UserMessages message(@RequestParam(value = "msg", defaultValue = "")String msg) {
-        if(!msg.equals("")){
-            userMessages.addMessage(msg);
-        }
-        return userMessages;
+    @PostMapping("/add-user")
+    public @ResponseBody String addUser (@RequestParam String name) {
+        User newUser = new User(name);
+        userRepository.save(newUser);
+        return "User " + name + " with ID=" + newUser.getId() + " saved.";
     }
-//Back end for BUPT ChuYan project "e-ink Display".
+
+    @PostMapping("/add-message")
+    public @ResponseBody String addMessage(@RequestParam Long id, @RequestParam String message) {
+        Optional<User> referencedUser = userRepository.findById(id);
+        if(referencedUser.isPresent()) {
+            referencedUser.get().addMessage(message);
+            return "Added message \""+message+ "\" to user " + id + ".";
+        }
+        else
+            return "Could find the user ID.";
+    }
+
+    @GetMapping("/get-message")
+    public @ResponseBody
+    Vector<MessageBody> getMessage(@RequestParam(value = "id") long id, @RequestParam(value="which", defaultValue = "-1") int which) {
+        Optional<User> referencedUser = userRepository.findById(id);
+        if(referencedUser.isPresent() && which != 0) {
+            if(which<0){
+                return referencedUser.get().getMessages(which);
+            } else {
+                return referencedUser.get().getMessages(which);
+            }
+        }
+        else
+            return null;
+    }
 }
