@@ -1,19 +1,29 @@
 package com.einkdisplay.einkdisplayserver;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class UserMessage {
 
-    private final HashMap <Long, String> userMessages = new HashMap<>();
+    private final Vector<MessageBody> userMessages = new Vector<>();
 
-    public UserMessage(long id, String content) {
-        userMessages.put(id, content);
+    public UserMessage(String message) {
+        userMessages.add(new MessageBody(LocalDateTime.now(), message));
     }
 
     public UserMessage() {
     }
 
-    public HashMap<Long, String> getUserMessages() {
+    public void addMessage(String message){
+        userMessages.add(new MessageBody(LocalDateTime.now(), message));
+    }
+
+    public MessageBody getLastMessage(){
+        return userMessages.lastElement();
+    }
+
+    public Vector<MessageBody> getAllMessages(){
         return userMessages;
     }
 }
