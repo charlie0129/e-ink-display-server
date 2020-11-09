@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class UserMessage {
+public class UserMessages {
 
     private final Vector<MessageBody> userMessages = new Vector<>();
 
-    public UserMessage(String message) {
+    public UserMessages(String message) {
         userMessages.add(new MessageBody(LocalDateTime.now(), message));
     }
 
-    public UserMessage() {
+    public UserMessages() {
     }
 
     public void addMessage(String message){
