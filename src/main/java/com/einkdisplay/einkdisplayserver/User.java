@@ -33,6 +33,18 @@ public class User {
         this.name = name;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
 //    public void addMessage(String message) {
 //        messages.add(new Message(LocalDateTime.now(), message));
 //    }
