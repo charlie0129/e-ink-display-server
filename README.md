@@ -64,7 +64,7 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 
 
-## How to run this test program
+## How to run this project
 
 1. Clone this repository
 
