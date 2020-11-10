@@ -19,7 +19,8 @@ public class MessageController {
     @PostMapping("/add-user")
     public @ResponseBody
     String addUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") long phone) {
-        if(name.equals("") || phone == 0) return "Invalid field";
+        if (name.equals("") || phone == 0)
+            return "Invalid field";
         User newUser = new User(name, phone);
         userRepository.save(newUser);
         return "User " + name + " with ID=" + newUser.getId() + " saved.";
@@ -57,8 +58,8 @@ public class MessageController {
             if (which < 0) {
                 for (int i = -1; i >= (Math.abs(which) <= messageArrayList.size() ? which : -messageArrayList.size()); i--)
                     returnMessages.add(messageArrayList.get(messageArrayList.size() + i));
-            } else {
-                for (int i = 0; i <= (which < messageArrayList.size() ? which : messageArrayList.size() - 1); i++)
+            } else if (which > 0) {
+                for (int i = 0; i < (which <= messageArrayList.size() ? which : messageArrayList.size()); i++)
                     returnMessages.add(messageArrayList.get(i));
             }
         }
