@@ -4,7 +4,7 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 *All APIs are for test purposes.*
 
-**This project is still in its alpha stage,  under development. There is no gurtantee that the program can run without problems.**
+**This project is still in its alpha stage,  under development. There is no guarantee that the program can run without problems.**
 
  TODO:
 
@@ -14,11 +14,11 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 - [x] Link different messages to different users
 
-- [x] Retrive a list of messages using HTTP GET
+- [x] Retrieve a list of messages using HTTP GET
 
 - [x] Store users and messages using MySQL database
 
-- [ ] Require user identification when commiting and retriving messages
+- [ ] Require user identification when committing and retrieving messages
 
 - [ ] Security improvements
 
@@ -37,7 +37,7 @@ Back end for BUPT ChuYan project "e-ink Display".
      | name  |       |     The user's name.     |
      | phone |       | The user's phone number. |
    
-   - The user will be assigned an ID. It is returned as the reponse.
+   - The user will be assigned an ID. It is returned as the response.
    
 2. Add a message
 
@@ -48,9 +48,9 @@ Back end for BUPT ChuYan project "e-ink Display".
      | userid  |       | The user that this message belongs to. |
      | message |       |          The message it self.          |
 
-   - The message will be assigned an ID. It is returned as the reponse.
+   - The message will be assigned an ID. It is returned as the response.
 
-3. Retrive a message list
+3. Retrieve a message list
    - Use `HTTP GET` method at `/get-message`
    
      |  KEY   |       VALUE        |                         DESCRIPTION                          |
