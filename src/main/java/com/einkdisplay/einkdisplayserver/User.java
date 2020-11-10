@@ -5,20 +5,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.einkdisplay.einkdisplayserver.MessageBody;
-
-import java.time.LocalDateTime;
-import java.util.Vector;
-
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private final Vector<MessageBody> messages = new Vector<>();
+    private long phone;
+
+//    private final Vector<Message> messages = new Vector<>();
 
     public Long getId() {
         return id;
@@ -36,38 +33,39 @@ public class User {
         this.name = name;
     }
 
-    public void addMessage(String message) {
-        messages.add(new MessageBody(LocalDateTime.now(), message));
-    }
-
-    public Vector<MessageBody> getMessages() {
-        return messages;
-    }
-
-//    public MessageBody getLastMessage(){
-//        return messages.lastElement();
+//    public void addMessage(String message) {
+//        messages.add(new Message(LocalDateTime.now(), message));
+//    }
+//
+//    public Vector<Message> getMessages() {
+//        return messages;
+//    }
+//
+////    public MessageBody getLastMessage(){
+////        return messages.lastElement();
+////    }
+//
+//
+//
+//    public Vector<Message> getMessages(int index) throws IndexOutOfBoundsException {
+//        Vector<Message> ret = new Vector<>();
+//        if (index >= 0) {
+//            for (int i = 0; i <= index; i++) {
+//                if (messages.size() > 0)
+//                ret.add(messages.get(i));
+//            }
+//        } else {
+//            for (int i = -1; i >= index; i--) {
+//                if (messages.size() > 0)
+//                ret.add(messages.get((messages.size()+i)));
+//            }
+//        }
+//        return ret;
 //    }
 
-
-
-    public Vector<MessageBody> getMessages(int index) throws IndexOutOfBoundsException {
-        Vector<MessageBody> ret = new Vector<>();
-        if (index >= 0) {
-            for (int i = 0; i <= index; i++) {
-                if (messages.size() > 0)
-                ret.add(messages.get(i));
-            }
-        } else {
-            for (int i = -1; i >= index; i--) {
-                if (messages.size() > 0)
-                ret.add(messages.get((messages.size()+i)));
-            }
-        }
-        return ret;
-    }
-
-    public User(String name) {
+    public User(String name, long phone) {
         this.name = name;
+        this.phone = phone;
     }
 
     public User() {
