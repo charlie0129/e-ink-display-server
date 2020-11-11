@@ -73,9 +73,9 @@ Back end for BUPT ChuYan project "e-ink Display".
 2. Create a MySQL database
 
    ```mssql
-   create database db_example
-   create user 'administrator'@'%' identified by 'pswd'
-   grant all on db_example.* to 'administrator'@'%'
+   create database db_example;
+   create user 'administrator'@'%' identified by 'pswd';
+   grant all on db_example.* to 'administrator'@'%';
    ```
 
 3. Run this project
