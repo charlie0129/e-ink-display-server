@@ -8,7 +8,7 @@ Back end for BUPT ChuYan project "e-ink Display".
 
  TODO:
 
-- [x] Relay messages using HTTP GET.
+- [x] Relay messages using HTTP GET
 
 - [x] Commit messages using HTTP POST
 
@@ -17,6 +17,8 @@ Back end for BUPT ChuYan project "e-ink Display".
 - [x] Retrieve a list of messages using HTTP GET
 
 - [x] Store users and messages using MySQL database
+
+- [ ] Link messages to users using many-to-one model
 
 - [ ] Require user identification when committing and retrieving messages
 
