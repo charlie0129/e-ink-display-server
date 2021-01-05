@@ -1,9 +1,8 @@
 package com.einkdisplay.einkdisplayserver;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,12 +12,15 @@ public class Message implements Comparable<Message>{
     private Long id;
     private String message;
     private LocalDateTime time;
-    private long userID;
+    @ManyToOne
+    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @JsonBackReference
+    private User user;
 
-    public Message(LocalDateTime time, String message, long userID) {
+    public Message(LocalDateTime time, String message, User user) {
         this.time = time;
         this.message = message;
-        this.userID=userID;
+        this.user=user;
     }
 
     public void setId(Long id) {
@@ -33,8 +35,8 @@ public class Message implements Comparable<Message>{
         this.time = time;
     }
 
-    public void setUserID(long userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Message(){
@@ -55,8 +57,8 @@ public class Message implements Comparable<Message>{
         return id;
     }
 
-    public long getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
     @Override
