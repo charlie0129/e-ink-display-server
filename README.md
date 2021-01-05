@@ -1,3 +1,5 @@
+
+
 # e-ink-display-server (under dev)
 
 Back end for BUPT ChuYan project "e-ink Display".
@@ -92,38 +94,46 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 1. Clone this repository
 
+   `shell`:
+
    ```shell
    git clone https://github.com/charlie0129/e-ink-display-server.git
    ```
 
-2. Install `maven`, `mysql` and `jdk`
+2. Install `maven`, `mysql` and `jdk` on your computer
 
 3. Login to MySQL and create a database
 
+   `shell`:
+
    ```shell
-   # shell command
    mysql -uroot
    ```
+   
+   `SQL`:
 
    ```mysql
-   -- SQL statements
    create database db_example;
    create user 'administrator'@'%' identified by 'pswd';
    grant all on db_example.* to 'administrator'@'%';
    ```
-
+   
 4. Run this project
+
+   `shell`:
 
    ```shell
    cd e-ink-display-server
    mvn spring-boot:run
    ```
-   
+
    The server will start after all the dependencies are installed. You can test `HTTP` requests at port `8080` using the APIs above.
-   
+
    Use `control-c` to stop the server.
-   
+
 5. (Optional) Create a user, add a message and retrieve it.
+
+    `shell`:
 
     ```shell
     # Create a user named Jonny Appleseed with a phone number of 0109234
