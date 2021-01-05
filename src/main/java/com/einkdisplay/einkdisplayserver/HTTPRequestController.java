@@ -27,14 +27,15 @@ public class HTTPRequestController {
 
     @PostMapping("/add-message")
     public @ResponseBody
-    String addMessage(@RequestParam(value = "userid") Long userID, @RequestParam(value = "message") String message) {
+    long addMessage(@RequestParam(value = "userid") Long userID, @RequestParam(value = "message") String message) {
         Optional<User> referencedUser = userRepository.findById(userID);
         if (referencedUser.isPresent()) {
             Message newMessage = new Message(LocalDateTime.now(), message, referencedUser.get());
             messageRepository.save(newMessage);
-            return "Message \"" + message + "\" with ID=" + newMessage.getId() + " saved to user " + userID + ".";
-        } else
-            return "Could find the user ID.";
+            return newMessage.getId();
+        }
+
+        return 0;
     }
 
     @GetMapping("/get-message")
