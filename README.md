@@ -18,7 +18,7 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 - [x] Store users and messages using MySQL database
 
-- [ ] Link messages to users using many-to-one model
+- [x] Link messages to users using many-to-one model
 
 - [ ] Require user identification when committing and retrieving messages
 
@@ -55,16 +55,38 @@ Back end for BUPT ChuYan project "e-ink Display".
 3. Retrieve a message list
    - Use `HTTP GET` method at `/get-message`
    
-     |  KEY   |       VALUE        |                         DESCRIPTION                          |
-     | :----: | :----------------: | :----------------------------------------------------------: |
-     | which  | (defaults to "-1") | How many messages you want? A negative number returns the messages in descending order sorted by submission time and vice versa. |
-     | userid | (defaults to "0")  | Only return the messages that are related to the specified user. ("0" means all messages) |
-   
+     |  KEY   |       VALUE       |                         DESCRIPTION                          |
+     | :----: | :---------------: | :----------------------------------------------------------: |
+     | userid | (defaults to "0") | Only get the messages that are relevant to the user ID. But a user ID of `0` means getting messages from any user. |
+     
    - The required messages will be returned in JSON format. You can use a JSON parser to parse the messages and display them on the e-ink display.
-     - Example: `/get-message?which=-4`
-     - Returns: `[{"id":4,"message":"1message","time":"2020-11-10T12:28:40.056608","userID":2},{"id":3,"message":"2message","time":"2020-11-10T12:28:37.933348","userID":2},{"id":2,"message":"2message","time":"2020-11-10T12:28:34.644941","userID":1},{"id":1,"message":"1stmessage","time":"2020-11-10T12:28:28.029652","userID":1}]`
-
-
+     - Example: 
+     
+         ```json
+         [
+           {
+             "id": 9,
+             "message": "hello world once more",
+             "time": "2021-01-06T00:00:17.838585",
+             "user": { "id": 1, "name": "charlie", "phone": 133 }
+           },
+           {
+             "id": 8,
+             "message": "hello world again",
+             "time": "2021-01-06T00:00:07.464932",
+             "user": { "id": 1, "name": "charlie", "phone": 133 }
+           },
+           {
+             "id": 7,
+             "message": "hello world",
+             "time": "2021-01-05T23:59:54.655655",
+             "user": { "id": 1, "name": "charlie", "phone": 133 }
+           }
+         ]
+         
+         ```
+     
+         
 
 ## How to run this project
 
