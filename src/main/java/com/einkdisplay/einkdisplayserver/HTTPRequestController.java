@@ -39,6 +39,10 @@ public class HTTPRequestController {
     @GetMapping("/get-message")
     public @ResponseBody
     ArrayList<Message> getMessage(@RequestParam(value = "userid", defaultValue = "0") Long userID) {
+        if (userID == 0) {
+            return messageRepository.findAll();
+        }
+
         Optional<User> referencedUser = userRepository.findById(userID);
         if (referencedUser.isPresent()) {
             return messageRepository.findByUserOrderByIdDesc(referencedUser.get());

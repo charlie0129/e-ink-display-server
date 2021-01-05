@@ -11,4 +11,5 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
     ArrayList<Message> findByUser(User user);
     ArrayList<Message> findByUserOrderByIdDesc(User user);
     ArrayList<Message> findTop10ByUserOrderByIdDesc(User user);
+    ArrayList<Message> findAll();
 }

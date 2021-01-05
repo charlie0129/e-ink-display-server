@@ -14,7 +14,6 @@ public class Message implements Comparable<Message>{
     private LocalDateTime time;
     @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "id")
-    @JsonBackReference
     private User user;
 
     public Message(LocalDateTime time, String message, User user) {
