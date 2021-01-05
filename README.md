@@ -121,6 +121,8 @@ Back end for BUPT ChuYan project "e-ink Display".
    
    The server will start after all the dependencies are installed. You can test `HTTP` requests at port `8080` using the APIs above.
    
+   Use `control-c` to stop the server.
+   
 5. (Optional) Create a user, some messages and retrieve it.
 
     ```shell
