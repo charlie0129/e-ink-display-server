@@ -16,12 +16,13 @@ public class HTTPRequestController {
 
     @PostMapping("/add-user")
     public @ResponseBody
-    String addUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") long phone) {
+    long addUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") long phone) {
         if (name.equals("") || phone == 0)
-            return "Invalid field";
+            return 0;
+
         User newUser = new User(name, phone);
         userRepository.save(newUser);
-        return "User " + name + " with ID=" + newUser.getId() + " saved.";
+        return newUser.getId();
     }
 
     @PostMapping("/add-message")
