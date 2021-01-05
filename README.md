@@ -123,7 +123,7 @@ Back end for BUPT ChuYan project "e-ink Display".
    
    Use `control-c` to stop the server.
    
-5. (Optional) Create a user, some messages and retrieve it.
+5. (Optional) Create a user, add a message and retrieve it.
 
     ```shell
     # Create a user named Jonny Appleseed with a phone number of 0109234
