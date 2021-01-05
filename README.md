@@ -92,18 +92,46 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 1. Clone this repository
 
-   `git clone https://github.com/charlie0129/e-ink-display-server.git`
+   ```shell
+   git clone https://github.com/charlie0129/e-ink-display-server.git
+   ```
 
-2. Create a MySQL database
+2. Install `maven`, `mysql` and `jdk`
 
-   ```mssql
+3. Login to MySQL and create a database
+
+   ```shell
+   # shell command
+   mysql -uroot
+   ```
+
+   ```mysql
+   -- SQL statements
    create database db_example;
    create user 'administrator'@'%' identified by 'pswd';
    grant all on db_example.* to 'administrator'@'%';
    ```
 
-3. Run this project
+4. Run this project
 
-   `mvn spring-boot:run`
+   ```shell
+   cd e-ink-display-server
+   mvn spring-boot:run
+   ```
+   
+   The server will start after all the dependencies are installed. You can test `HTTP` requests at port `8080` using the APIs above.
+   
+5. (Optional) Create a user, some messages and retrieve it.
 
-   Test the HTTP requests at port `8080`.
+    ```shell
+    # Create a user named Jonny Appleseed with a phone number of 0109234
+    ID=("$(curl -X POST "http://localhost:8080/add-user" -d "name=Johnny%20Appleseed&phone=0109234")")
+    
+    # Add a message "Hello, world" to the user just created
+    curl -X POST "http://localhost:8080/add-message" -d "userid=${ID}&message=Hello,%20world"
+    
+    # Retrieve messages from the server and display them through 'stdout'
+    curl -X GET "http://localhost:8080/get-message?userid=${ID}" | python -m json.tool
+    ```
+
+    
