@@ -136,7 +136,7 @@ Back end for BUPT ChuYan project "e-ink Display".
     `shell`:
 
     ```shell
-    # Create a user named Jonny Appleseed with a phone number of 0109234
+    # Create a user named Johnny Appleseed with a phone number of 0109234
     ID=("$(curl -X POST "http://localhost:8080/add-user" -d "name=Johnny%20Appleseed&phone=0109234")")
     
     # Add a message "Hello, world" to the user just created
