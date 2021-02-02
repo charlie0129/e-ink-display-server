@@ -15,7 +15,7 @@ public class Message implements Comparable<Message> {
     private User user;
     @ManyToOne
     @JoinColumn(name = "displayid", referencedColumnName = "id")
-    private EInkDisplay eInkDisplay;
+    private EInkDisplay display;
 
     public Message() {
     }
@@ -27,15 +27,15 @@ public class Message implements Comparable<Message> {
         this.time = time;
         this.message = message;
         this.user = user;
-        this.eInkDisplay = display;
+        this.display = display;
     }
 
     public EInkDisplay getEInkDisplay() {
-        return eInkDisplay;
+        return display;
     }
 
     public void setEInkDisplay(EInkDisplay eInkDisplay) {
-        this.eInkDisplay = eInkDisplay;
+        this.display = eInkDisplay;
     }
 
     public void setId(Long id) {

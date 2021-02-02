@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    ArrayList<Message> findByEInkDisplayOrderByIdDesc(EInkDisplay eInkDisplay);
+    ArrayList<Message> findByDisplayOrderByIdDesc(EInkDisplay display);
     ArrayList<Message> findByUserOrderByIdDesc(User user);
     ArrayList<Message> findTop20ByUserOrderByIdDesc(User user);
     ArrayList<Message> findAll();
