@@ -101,7 +101,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
     ```json
     {
       "message": "Hello, world!",
-  "time": "2021-01-01 00:01:01",
+    "time": "2021-01-01 00:01:01",
       "userId": "1",
       "eInkDisplayId": "1"
     }
@@ -132,7 +132,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
           "href": "http://localhost:8080/api/users/1/messages?n=0"
         },
         "messagesFromDisplay": {
-          "href": "http://localhost:8080/api/displays/1/messsages"
+          "href": "http://localhost:8080/api/displays/1/messsages?n=0"
         },
         "messages": {
           "href": "http://localhost:8080/api/messages"
@@ -154,28 +154,28 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       "_embedded": {
         "messageList": [
           {
-            "id": 1,
-            "message": "Hello, world!",
+            "id": 3,
+            "message": "Hello, world! Once more!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 1,
-              "name": "无名氏"
+              "id": 2,
+              "name": "老王"
             },
             "einkDisplay": {
-              "id": 1,
-              "name": "Sample Display",
-              "latitude": 40.156,
-              "longitude": 116.283
+              "id": 2,
+              "name": "Another Sample Display",
+              "latitude": 40.35,
+              "longitude": 116.65
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/1"
+                "href": "http://localhost:8080/api/messages/3"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/1/messages?n=0"
+                "href": "http://localhost:8080/api/users/2/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages"
+                "href": "http://localhost:8080/api/displays/2/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -204,7 +204,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
                 "href": "http://localhost:8080/api/users/2/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages"
+                "href": "http://localhost:8080/api/displays/1/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -279,7 +279,11 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
 ### `GET /api/users/{userId}/messages`: List messages related to the user
 
-- No additonal fields required
+- Required fields in the URL parameters:
+
+    | KEY  | TYPE   | DESCRIPTION                |
+    | ---- | ------ | -------------------------- |
+    | n    | Number | Number of entries you want |
 
 - An example of successful response:
 
@@ -309,7 +313,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
                 "href": "http://localhost:8080/api/users/2/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/2/messsages"
+                "href": "http://localhost:8080/api/displays/2/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -338,7 +342,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
                 "href": "http://localhost:8080/api/users/2/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages"
+                "href": "http://localhost:8080/api/displays/1/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -346,6 +350,11 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
             }
           }
         ]
+      },
+      "_links": {
+        "self": {
+          "href": "http://localhost:8080/api/users/2/messages?n=0"
+        }
       }
     }
     ```
@@ -456,7 +465,11 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
 ### `GET /api/displays/{displayId}/messages`: List messages related to the displays
 
-- No additonal fields required
+- Required fields in the URL parameters:
+
+    | KEY  | TYPE   | DESCRIPTION                |
+    | ---- | ------ | -------------------------- |
+    | n    | Number | Number of entries you want |
 
 - An example of successful response:
 
@@ -486,7 +499,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
                 "href": "http://localhost:8080/api/users/2/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages"
+                "href": "http://localhost:8080/api/displays/1/messsages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -515,7 +528,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
                 "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages"
+                "href": "http://localhost:8080/api/displays/1/messsages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -526,7 +539,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       },
       "_links": {
         "self": {
-          "href": "http://localhost:8080/api/displays/1/messsages"
+          "href": "http://localhost:8080/api/displays/1/messsages?n=0"
         }
       }
     }
