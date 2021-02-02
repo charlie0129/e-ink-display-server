@@ -30,7 +30,7 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 
 
-## HTTP request examples (only for test purposes):
+## HTTP request examples (soon to be deprecated):
 
 1. Add a user.
 
