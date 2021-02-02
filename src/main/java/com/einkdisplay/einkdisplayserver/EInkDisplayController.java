@@ -99,12 +99,12 @@ public class EInkDisplayController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/displays/{displayId}/messsages")
+    @GetMapping("/api/displays/{displayId}/messages")
     public CollectionModel<EntityModel<Message>> getMessageAllByDisplay(@PathVariable Long displayId) {
 
         List<EntityModel<Message>> messages =
-                messageRepository.findByEInkDisplayOrderByIdDesc(eInkDisplayRepository.findById(displayId)
-                                                                                      .orElseThrow(() -> new ResourceNotFoundException(
+                messageRepository.findByDisplayOrderByIdDesc(eInkDisplayRepository.findById(displayId)
+                                                                                  .orElseThrow(() -> new ResourceNotFoundException(
                                                                                               "Display with ID=" + displayId + " could " +
                                                                                               "not be found.")))
                                  .stream()
