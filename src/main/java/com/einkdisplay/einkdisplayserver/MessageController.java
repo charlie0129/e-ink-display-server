@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,13 +45,13 @@ public class MessageController {
     @GetMapping("/api/messages")
     public CollectionModel<EntityModel<Message>> getMessageAll() {
 
-        List<EntityModel<Message>> messsages =
-                messageRepository.findAll()
+        List<EntityModel<Message>> messages=
+                messageRepository.findByOrderByIdDesc()
                                  .stream()
                                  .map(messageModelAssembler::toModel)
                                  .collect(Collectors.toList());
 
-        return CollectionModel.of(messsages,
+        return CollectionModel.of(messages,
                                   linkTo(methodOn(MessageController.class).getMessageAll())
                                           .withSelfRel());
     }

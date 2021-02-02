@@ -16,7 +16,7 @@ public class MessageModelAssembler
                              .withSelfRel(),
                               linkTo(methodOn(UserController.class).getMessageAllByUser(message.getUser().getId(), 0L))
                               .withRel("messagesFromUser"),
-                              linkTo(methodOn(EInkDisplayController.class).getMessageAllByDisplay(message.getEInkDisplay().getId()))
+                              linkTo(methodOn(EInkDisplayController.class).getMessageAllByDisplay(message.getEInkDisplay().getId(), 0L))
                               .withRel("messagesFromDisplay"),
                               linkTo(methodOn(MessageController.class).getMessageAll())
                              .withRel("messages"));

@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class UserController {
 
@@ -130,6 +133,8 @@ public class UserController {
                           .collect(Collectors.toList());
         }
 
-        return CollectionModel.of(messages);
+        return CollectionModel.of(messages,
+                                  linkTo(methodOn(UserController.class).getMessageAllByUser(userId, n))
+                                 .withSelfRel());
     }
 }

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,19 +102,33 @@ public class EInkDisplayController {
     }
 
     @GetMapping("/api/displays/{displayId}/messages")
-    public CollectionModel<EntityModel<Message>> getMessageAllByDisplay(@PathVariable Long displayId) {
+    public CollectionModel<EntityModel<Message>> getMessageAllByDisplay(@PathVariable Long displayId,
+                                                                        @RequestParam(value = "n", defaultValue = "0") Long n) {
 
-        List<EntityModel<Message>> messages =
-                messageRepository.findByDisplayOrderByIdDesc(eInkDisplayRepository.findById(displayId)
-                                                                                  .orElseThrow(() -> new ResourceNotFoundException(
-                                                                                              "Display with ID=" + displayId + " could " +
-                                                                                              "not be found.")))
-                                 .stream()
-                                 .map(messageModelAssembler::toModel)
-                                 .collect(Collectors.toList());
+        EInkDisplay referencedDisplay = eInkDisplayRepository.findById(displayId)
+                                                             .orElseThrow(() -> new ResourceNotFoundException(
+                                                                     "Display with ID=" + displayId + " could " +
+                                                                     "not be found."));
+
+
+        List<EntityModel<Message>> messages;
+
+        if (0 == n) {
+            messages = messageRepository.findByDisplayOrderByIdDesc(referencedDisplay)
+                                        .stream()
+                                        .map(messageModelAssembler::toModel)
+                                        .collect(Collectors.toList());
+        } else {
+            messages =
+                    Arrays.stream((Message[]) Arrays.copyOfRange(messageRepository.findByDisplayOrderByIdDesc(referencedDisplay).toArray(),
+                                                                 0,
+                                                                 n.intValue()))
+                          .map(messageModelAssembler::toModel)
+                          .collect(Collectors.toList());
+        }
 
         return CollectionModel.of(messages,
-                                  linkTo(methodOn(EInkDisplayController.class).getMessageAllByDisplay(displayId))
+                                  linkTo(methodOn(EInkDisplayController.class).getMessageAllByDisplay(displayId, n))
                                           .withSelfRel());
     }
 

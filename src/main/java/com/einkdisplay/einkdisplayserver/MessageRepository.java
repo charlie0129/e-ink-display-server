@@ -12,4 +12,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     ArrayList<Message> findByUserOrderByIdDesc(User user);
     ArrayList<Message> findTop20ByUserOrderByIdDesc(User user);
     ArrayList<Message> findAll();
+    ArrayList<Message> findByOrderByIdDesc();
 }
