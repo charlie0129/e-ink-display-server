@@ -12,7 +12,7 @@ class InitDatabase {
     private static final Logger LOGGER = LoggerFactory.getLogger(InitDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(EInkDisplayRepository eInkDisplayRepository) {
+    CommandLineRunner loadGeneralDisplay(EInkDisplayRepository eInkDisplayRepository) {
 
         return args -> {
             LOGGER.info("Preloading general display "
