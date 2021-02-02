@@ -28,7 +28,31 @@ Back end for BUPT ChuYan project "e-ink Display".
 
   ......
 
-[toc]
+Table of Contents
+=================
+
+   * [e-ink-display-server (under dev)](#e-ink-display-server-under-dev)
+   * [API specifications:](#api-specifications)
+      * [Message related APIs](#message-related-apis)
+      * [User related APIs](#user-related-apis)
+      * [e-Ink display related APIs](#e-ink-display-related-apis)
+      * [API Details](#api-details)
+         * [POST /api/messages: Add a message](#post-apimessages-add-a-message)
+         * [GET /api/messages: List messages](#get-apimessages-list-messages)
+         * [GET /api/messages/{messageId}: Identify the message](#get-apimessagesmessageid-identify-the-message)
+         * [PUT /api/messages/{messageId}: Replace the message](#put-apimessagesmessageid-replace-the-message)
+         * [POST /api/users: add a user](#post-apiusers-add-a-user)
+         * [GET /api/users/{id}: Identify the user](#get-apiusersid-identify-the-user)
+         * [PUT /api/users/{id}: Replace the user](#put-apiusersid-replace-the-user)
+         * [GET /api/users/{userId}/messages: List messages related to the user](#get-apiusersuseridmessages-list-messages-related-to-the-user)
+         * [POST /api/displays: Add a display](#post-apidisplays-add-a-display)
+         * [GET /api/displays: List displays](#get-apidisplays-list-displays)
+         * [GET /api/displays/{id}: Identify the displays](#get-apidisplaysid-identify-the-displays)
+         * [PUT /api/displays/{id}: Replace the displays](#put-apidisplaysid-replace-the-displays)
+         * [GET /api/displays/{displayId}/messages: List messages related to the displays](#get-apidisplaysdisplayidmessages-list-messages-related-to-the-displays)
+   * [How to run this project](#how-to-run-this-project)
+
+---
 
 # API specifications:
 
