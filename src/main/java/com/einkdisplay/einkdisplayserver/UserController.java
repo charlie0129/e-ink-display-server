@@ -100,8 +100,8 @@ public class UserController {
     }
 
 
-    @GetMapping("/api/users/{userid}/messages")
-    public CollectionModel<EntityModel<Message>> getMessageAllByUser(@PathVariable(value = "userid") Long userId,
+    @GetMapping("/api/users/{userId}/messages")
+    public CollectionModel<EntityModel<Message>> getMessageAllByUser(@PathVariable Long userId,
                                                                      @RequestParam(value = "n", defaultValue = "0") Long n) {
 
         User referencedUser = userRepository.findById(userId)
