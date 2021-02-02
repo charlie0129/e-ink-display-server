@@ -1,12 +1,10 @@
 package com.einkdisplay.einkdisplayserver;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Message implements Comparable<Message>{
+public class Message implements Comparable<Message> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,11 +13,29 @@ public class Message implements Comparable<Message>{
     @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "displayid", referencedColumnName = "id")
+    private EInkDisplay eInkDisplay;
 
-    public Message(LocalDateTime time, String message, User user) {
+    public Message() {
+    }
+
+    public Message(LocalDateTime time,
+                   String message,
+                   User user,
+                   EInkDisplay display) {
         this.time = time;
         this.message = message;
-        this.user=user;
+        this.user = user;
+        this.eInkDisplay = display;
+    }
+
+    public EInkDisplay getEInkDisplay() {
+        return eInkDisplay;
+    }
+
+    public void setEInkDisplay(EInkDisplay eInkDisplay) {
+        this.eInkDisplay = eInkDisplay;
     }
 
     public void setId(Long id) {
@@ -38,14 +54,10 @@ public class Message implements Comparable<Message>{
         this.user = user;
     }
 
-    public Message(){
-
-    }
 
     public String getMessage() {
         return message;
     }
-
 
 
     public LocalDateTime getTime() {

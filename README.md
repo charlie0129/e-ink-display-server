@@ -113,9 +113,9 @@ Back end for BUPT ChuYan project "e-ink Display".
    `SQL`:
 
    ```mysql
-   create database db_example;
-   create user 'administrator'@'%' identified by 'pswd';
-   grant all on db_example.* to 'administrator'@'%';
+   create database eink_server_db;
+   create user 'eink_server_admin'@'%' identified by 'your_password';
+   grant all on eink_server_db.* to 'eink_server_admin'@'%';
    ```
    
 4. Run this project
@@ -136,7 +136,7 @@ Back end for BUPT ChuYan project "e-ink Display".
     `shell`:
 
     ```shell
-    # Create a user named Jonny Appleseed with a phone number of 0109234
+    # Create a user named Johnny Appleseed with a phone number of 0109234
     ID=("$(curl -X POST "http://localhost:8080/add-user" -d "name=Johnny%20Appleseed&phone=0109234")")
     
     # Add a message "Hello, world" to the user just created
