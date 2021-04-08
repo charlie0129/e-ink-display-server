@@ -1,7 +1,9 @@
-package com.einkdisplay.einkdisplayserver;
+package com.einkdisplay.einkdisplayserver.model;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import com.einkdisplay.einkdisplayserver.controller.UserController;
+import com.einkdisplay.einkdisplayserver.model.User;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

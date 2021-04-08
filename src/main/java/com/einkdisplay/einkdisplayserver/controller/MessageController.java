@@ -1,5 +1,13 @@
-package com.einkdisplay.einkdisplayserver;
+package com.einkdisplay.einkdisplayserver.controller;
 
+import com.einkdisplay.einkdisplayserver.model.EInkDisplay;
+import com.einkdisplay.einkdisplayserver.repository.EInkDisplayRepository;
+import com.einkdisplay.einkdisplayserver.model.Message;
+import com.einkdisplay.einkdisplayserver.model.MessageModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.MessageRepository;
+import com.einkdisplay.einkdisplayserver.exception.ResourceNotFoundException;
+import com.einkdisplay.einkdisplayserver.model.User;
+import com.einkdisplay.einkdisplayserver.repository.UserRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -43,7 +51,7 @@ public class MessageController {
     @GetMapping("/api/messages")
     public CollectionModel<EntityModel<Message>> getMessageAll() {
 
-        List<EntityModel<Message>> messages=
+        List<EntityModel<Message>> messages =
                 messageRepository.findByOrderByIdDesc()
                                  .stream()
                                  .map(messageModelAssembler::toModel)
@@ -148,7 +156,7 @@ public class MessageController {
 
     @DeleteMapping("/api/messages/{messageId}")
     public ResponseEntity<?> deleteMessage(@PathVariable Long messageId) {
-
+        // TODO: delete images before deleting the message
         messageRepository.deleteById(messageId);
 
         return ResponseEntity.noContent().build();

@@ -1,5 +1,13 @@
-package com.einkdisplay.einkdisplayserver;
+package com.einkdisplay.einkdisplayserver.controller;
 
+import com.einkdisplay.einkdisplayserver.model.Message;
+import com.einkdisplay.einkdisplayserver.model.MessageModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.MessageRepository;
+import com.einkdisplay.einkdisplayserver.exception.ResourceConflictException;
+import com.einkdisplay.einkdisplayserver.exception.ResourceNotFoundException;
+import com.einkdisplay.einkdisplayserver.model.User;
+import com.einkdisplay.einkdisplayserver.model.UserModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.UserRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -124,6 +132,6 @@ public class UserController {
 
         return CollectionModel.of(messages,
                                   linkTo(methodOn(UserController.class).getMessageAllByUser(userId, n))
-                                 .withSelfRel());
+                                          .withSelfRel());
     }
 }

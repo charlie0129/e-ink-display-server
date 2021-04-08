@@ -1,4 +1,4 @@
-package com.einkdisplay.einkdisplayserver;
+package com.einkdisplay.einkdisplayserver.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

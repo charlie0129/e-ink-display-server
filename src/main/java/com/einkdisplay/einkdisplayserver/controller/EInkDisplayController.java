@@ -1,5 +1,12 @@
-package com.einkdisplay.einkdisplayserver;
+package com.einkdisplay.einkdisplayserver.controller;
 
+import com.einkdisplay.einkdisplayserver.model.EInkDisplay;
+import com.einkdisplay.einkdisplayserver.model.EInkDisplayModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.EInkDisplayRepository;
+import com.einkdisplay.einkdisplayserver.model.Message;
+import com.einkdisplay.einkdisplayserver.model.MessageModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.MessageRepository;
+import com.einkdisplay.einkdisplayserver.exception.ResourceNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -13,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
