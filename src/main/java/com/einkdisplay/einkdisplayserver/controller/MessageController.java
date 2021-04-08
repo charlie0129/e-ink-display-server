@@ -4,6 +4,7 @@ import com.einkdisplay.einkdisplayserver.model.EInkDisplay;
 import com.einkdisplay.einkdisplayserver.repository.EInkDisplayRepository;
 import com.einkdisplay.einkdisplayserver.model.Message;
 import com.einkdisplay.einkdisplayserver.model.MessageModelAssembler;
+import com.einkdisplay.einkdisplayserver.repository.ImageFileRepository;
 import com.einkdisplay.einkdisplayserver.repository.MessageRepository;
 import com.einkdisplay.einkdisplayserver.exception.ResourceNotFoundException;
 import com.einkdisplay.einkdisplayserver.model.User;
@@ -35,16 +36,19 @@ public class MessageController {
     private final UserRepository userRepository;
     private final EInkDisplayRepository eInkDisplayRepository;
     private final MessageModelAssembler messageModelAssembler;
+    private final ImageFileRepository imageFileRepository;
 
 
     public MessageController(MessageRepository messageRepository,
                              UserRepository userRepository,
                              EInkDisplayRepository eInkDisplayRepository,
-                             MessageModelAssembler messageModelAssembler) {
+                             MessageModelAssembler messageModelAssembler,
+                             ImageFileRepository imageFileRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
         this.eInkDisplayRepository = eInkDisplayRepository;
         this.messageModelAssembler = messageModelAssembler;
+        this.imageFileRepository = imageFileRepository;
     }
 
 
@@ -99,7 +103,7 @@ public class MessageController {
 
 
     @GetMapping("/api/messages/{messageId}")
-    public EntityModel<Message> getMessageSingle(@PathVariable Long messageId) {
+    public EntityModel<Message> getMessageSingle(@PathVariable String messageId) {
 
         return messageModelAssembler.toModel(messageRepository.findById(messageId)
                                                               .orElseThrow(() -> new ResourceNotFoundException("Message " +
@@ -110,7 +114,7 @@ public class MessageController {
 
 
     @PutMapping("/api/messages/{messageId}")
-    public ResponseEntity<?> updateMessage(@PathVariable Long messageId,
+    public ResponseEntity<?> updateMessage(@PathVariable String messageId,
                                            @RequestBody MessageForm newMessage) {
 
         User referencedUser = userRepository.findById(newMessage.getUserId())
@@ -155,8 +159,18 @@ public class MessageController {
 
 
     @DeleteMapping("/api/messages/{messageId}")
-    public ResponseEntity<?> deleteMessage(@PathVariable Long messageId) {
-        // TODO: delete images before deleting the message
+    public ResponseEntity<?> deleteMessage(@PathVariable String messageId) {
+
+        Message referencedMessage = messageRepository.findById(messageId)
+                                                     .orElseThrow(
+                                                             () -> new ResourceNotFoundException("Message " +
+                                                                                                 "with ID="
+                                                                                                 + messageId
+                                                                                                 + " could not be " +
+                                                                                                 "found."));
+
+
+        imageFileRepository.deleteByMessage(referencedMessage);
         messageRepository.deleteById(messageId);
 
         return ResponseEntity.noContent().build();
