@@ -49,9 +49,9 @@ Table of Contents
          * [GET /api/users/{userId}/messages: List messages related to the user](#get-apiusersuseridmessages-list-messages-related-to-the-user)
          * [POST /api/displays: Add a display](#post-apidisplays-add-a-display)
          * [GET /api/displays: List displays](#get-apidisplays-list-displays)
-         * [GET /api/displays/{id}: Identify the displays](#get-apidisplaysid-identify-the-displays)
-         * [PUT /api/displays/{id}: Replace the displays](#put-apidisplaysid-replace-the-displays)
-         * [GET /api/displays/{displayId}/messages: List messages related to the displays](#get-apidisplaysdisplayidmessages-list-messages-related-to-the-displays)
+         * [GET /api/displays/{id}: Identify the display](#get-apidisplaysid-identify-the-display)
+         * [PUT /api/displays/{id}: Replace the display](#put-apidisplaysid-replace-the-display)
+         * [GET /api/displays/{displayId}/messages: List messages related to the display](#get-apidisplaysdisplayidmessages-list-messages-related-to-the-display)
          * [GET /api/images/{imageId}: Get a certain image](#get-apiimagesimageid-get-a-certain-image)
          * [POST /api/messages/{messageId}/images: Add an image to a certain message](#post-apimessagesmessageidimages-add-an-image-to-a-certain-message)
    * [How to run this project](#how-to-run-this-project)
@@ -64,35 +64,35 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
 ## Message related APIs
 
-| Resources                          | POST                              | GET                                      | PUT                 | DELETE                                    |
-| ---------------------------------- | --------------------------------- | ---------------------------------------- | ------------------- | ----------------------------------------- |
-| `/api/messages`                    | Add a message                     | List messages                            | -                   | -                                         |
-| `/api/messages/{messageId}`        | -                                 | Identify the message                     | Replace the message | Delete the message and the related images |
-| `/api/messages/{messageId}/images` | Add an image to a certain message | List images related to a certain message |                     |                                           |
+| Resources                          | POST                                                         | GET                                                          | PUT                                                          | DELETE                                    |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------- |
+| `/api/messages`                    | [Add a message](#post-apimessages-add-a-message)             | [List messages](#get-apimessages-list-messages)              | -                                                            | -                                         |
+| `/api/messages/{messageId}`        | -                                                            | [Identify the message](#get-apimessagesmessageid-identify-the-message) | [Replace the message](#put-apimessagesmessageid-replace-the-message) | Delete the message and the related images |
+| `/api/messages/{messageId}/images` | [Add an image to a certain message](#post-apimessagesmessageidimages-add-an-image-to-a-certain-message) |                                                              |                                                              |                                           |
 
 ## User related APIs
 
-| Resources                      | POST       | GET                               | PUT              | DELETE          |
-| ------------------------------ | ---------- | --------------------------------- | ---------------- | --------------- |
-| `/api/users`                   | Add a user | -                                 | -                | -               |
-| `/api/users/{id}`              | -          | Identify the user                 | Replace the user | Delete the user |
-| `/api/users/{userId}/messages` | -          | List messages related to the user | -                | -               |
+| Resources                      | POST                                    | GET                                                          | PUT                                                  | DELETE          |
+| ------------------------------ | --------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- | --------------- |
+| `/api/users`                   | [Add a user](#post-apiusers-add-a-user) | -                                                            | -                                                    | -               |
+| `/api/users/{id}`              | -                                       | [Identify the user](#get-apiusersid-identify-the-user)       | [Replace the user](#put-apiusersid-replace-the-user) | Delete the user |
+| `/api/users/{userId}/messages` | -                                       | [List messages related to the user](#get-apiusersuseridmessages-list-messages-related-to-the-user) | -                                                    | -               |
 
 ## e-Ink display related APIs
 
-| Resources                             | POST              | GET                               | PUT                 | DELETE             |
-| ------------------------------------- | ----------------- | --------------------------------- | ------------------- | ------------------ |
-| `/api/displays`                       | Add a new display | List displays                     | -                   | -                  |
-| `/api/displays/{id}`                  | -                 | Identify the display              | Replace the display | Delete the display |
-| `/api/displays/{displayId}/messsages` | -                 | List messages related the display | -                   | -                  |
+| Resources                             | POST                                              | GET                                                          | PUT                                                          | DELETE             |
+| ------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------ |
+| `/api/displays`                       | [Add a  display](#post-apidisplays-add-a-display) | [List displays](#get-apidisplays-list-displays)              | -                                                            | -                  |
+| `/api/displays/{id}`                  | -                                                 | [Identify the display](#get-apidisplaysid-identify-the-display) | [Replace the display](#put-apidisplaysid-replace-the-display) | Delete the display |
+| `/api/displays/{displayId}/messsages` | -                                                 | [List messages related the display](#get-apidisplaysdisplayidmessages-list-messages-related-to-the-display) | -                                                            | -                  |
 
 ## Image related APIs
 
-| Resources                          | POST                              | GET                  | PUT  | DELETE |
-| ---------------------------------- | --------------------------------- | -------------------- | ---- | ------ |
-| `/api/images`                      |                                   | List all image files |      |        |
-| `/api/images/{imageId}`            |                                   | Get a certain image  |      |        |
-| `/api/messages/{messageId}/images` | Add an image to a certain message |                      |      |        |
+| Resources                          | POST                                                         | GET                                                          | PUT  | DELETE |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- | ------ |
+| `/api/images`                      |                                                              | List all image files                                         |      |        |
+| `/api/images/{imageId}`            |                                                              | [Get a certain image](#get-apiimagesimageid-get-a-certain-image) |      |        |
+| `/api/messages/{messageId}/images` | [Add an image to a certain message](#post-apimessagesmessageidimages-add-an-image-to-a-certain-message) |                                                              |      |        |
 
 
 
@@ -484,16 +484,16 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
     
 
-### `GET /api/displays/{id}`: Identify the displays
+### `GET /api/displays/{id}`: Identify the display
 
 - No additonal fields required
 - Successful response is the same as `POST /api/displays`
 
-### `PUT /api/displays/{id}`: Replace the displays
+### `PUT /api/displays/{id}`: Replace the display
 
 - Refer to `POST /api/displays`. Data fields are the same.
 
-### `GET /api/displays/{displayId}/messages`: List messages related to the displays
+### `GET /api/displays/{displayId}/messages`: List messages related to the display
 
 - Required fields in the URL parameters:
 
