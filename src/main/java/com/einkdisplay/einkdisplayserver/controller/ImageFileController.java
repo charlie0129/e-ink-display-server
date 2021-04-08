@@ -100,22 +100,6 @@ public class ImageFileController {
                                           .withSelfRel());
     }
 
-    @GetMapping("/api/messages/{messageId}/images/{imageId}")
-    public ResponseEntity<?> getImageByMessage(@PathVariable String messageId,
-                                               @PathVariable String imageId) {
-        ImageFile imageFile = imageFileRepository
-                .findById(imageId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Image file" +
-                        " " +
-                        "with id=" + imageId + " " +
-                        "could not be found."));
-
-        return ResponseEntity.ok()
-                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + imageFile.getName() + "\"")
-                             .body(imageFile.getData());
-    }
-
     @GetMapping("/api/messages/{messageId}/images")
     public CollectionModel<EntityModel<ImageFile>> getImageAllByMessage(@PathVariable String messageId) {
 
