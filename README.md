@@ -32,10 +32,12 @@ Table of Contents
 =================
 
    * [e-ink-display-server (under dev)](#e-ink-display-server-under-dev)
+   * [Table of Contents](#table-of-contents)
    * [API specifications:](#api-specifications)
       * [Message related APIs](#message-related-apis)
       * [User related APIs](#user-related-apis)
       * [e-Ink display related APIs](#e-ink-display-related-apis)
+      * [Image related APIs](#image-related-apis)
       * [API Details](#api-details)
          * [POST /api/messages: Add a message](#post-apimessages-add-a-message)
          * [GET /api/messages: List messages](#get-apimessages-list-messages)
@@ -50,6 +52,8 @@ Table of Contents
          * [GET /api/displays/{id}: Identify the displays](#get-apidisplaysid-identify-the-displays)
          * [PUT /api/displays/{id}: Replace the displays](#put-apidisplaysid-replace-the-displays)
          * [GET /api/displays/{displayId}/messages: List messages related to the displays](#get-apidisplaysdisplayidmessages-list-messages-related-to-the-displays)
+         * [GET /api/images/{imageId}: Get a certain image](#get-apiimagesimageid-get-a-certain-image)
+         * [POST /api/messages/{messageId}/images: Add an image to a certain message](#post-apimessagesmessageidimages-add-an-image-to-a-certain-message)
    * [How to run this project](#how-to-run-this-project)
 
 ---
@@ -60,10 +64,11 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
 ## Message related APIs
 
-| Resources                   | POST          | GET                  | PUT                 | DELETE             |
-| --------------------------- | ------------- | -------------------- | ------------------- | ------------------ |
-| `/api/messages`             | Add a message | List messages        | -                   | -                  |
-| `/api/messages/{messageId}` | -             | Identify the message | Replace the message | Delete the message |
+| Resources                          | POST                              | GET                                      | PUT                 | DELETE                                    |
+| ---------------------------------- | --------------------------------- | ---------------------------------------- | ------------------- | ----------------------------------------- |
+| `/api/messages`                    | Add a message                     | List messages                            | -                   | -                                         |
+| `/api/messages/{messageId}`        | -                                 | Identify the message                     | Replace the message | Delete the message and the related images |
+| `/api/messages/{messageId}/images` | Add an image to a certain message | List images related to a certain message |                     |                                           |
 
 ## User related APIs
 
@@ -80,6 +85,16 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 | `/api/displays`                       | Add a new display | List displays                     | -                   | -                  |
 | `/api/displays/{id}`                  | -                 | Identify the display              | Replace the display | Delete the display |
 | `/api/displays/{displayId}/messsages` | -                 | List messages related the display | -                   | -                  |
+
+## Image related APIs
+
+| Resources                          | POST                              | GET                  | PUT  | DELETE |
+| ---------------------------------- | --------------------------------- | -------------------- | ---- | ------ |
+| `/api/images`                      |                                   | List all image files |      |        |
+| `/api/images/{imageId}`            |                                   | Get a certain image  |      |        |
+| `/api/messages/{messageId}/images` | Add an image to a certain message |                      |      |        |
+
+
 
 ## API Details
 
@@ -101,9 +116,9 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
     ```json
     {
       "message": "Hello, world!",
-    "time": "2021-01-01 00:01:01",
+      "time": "2021-01-01 00:01:01",
       "userId": "1",
-      "eInkDisplayId": "1"
+      "eInkDisplayId": "0"
     }
   ```
   
@@ -111,36 +126,39 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
 
     ```json
     {
-      "id": 1,
+      "id": "0a901ec0-d11b-46e5-9f87-5a58f6f5f023",
       "message": "Hello, world!",
       "time": "2021-01-01T00:01:01",
       "user": {
         "id": 1,
-        "name": "无名氏"
+        "name": "test user"
       },
       "einkDisplay": {
-        "id": 1,
-        "name": "Sample Display",
-        "latitude": 40.156,
-        "longitude": 116.283
+        "id": 0,
+        "name": "General Display",
+        "latitude": 0.0,
+        "longitude": 0.0
       },
       "_links": {
         "self": {
-          "href": "http://localhost:8080/api/messages/1"
+          "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023"
+        },
+        "images": {
+          "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023/images"
         },
         "messagesFromUser": {
           "href": "http://localhost:8080/api/users/1/messages?n=0"
         },
         "messagesFromDisplay": {
-          "href": "http://localhost:8080/api/displays/1/messsages?n=0"
+          "href": "http://localhost:8080/api/displays/0/messages?n=0"
         },
         "messages": {
           "href": "http://localhost:8080/api/messages"
         }
-      }
+  }
     }
-    ```
-
+  ```
+  
     
 
 ### `GET /api/messages`: List messages
@@ -154,28 +172,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       "_embedded": {
         "messageList": [
           {
-            "id": 3,
-            "message": "Hello, world! Once more!",
+            "id": "0a901ec0-d11b-46e5-9f87-5a58f6f5f023",
+            "message": "Hello, world!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 2,
-              "name": "老王"
+              "id": 1,
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 2,
-              "name": "Another Sample Display",
-              "latitude": 40.35,
-              "longitude": 116.65
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/3"
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023/images"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/2/messages?n=0"
+                "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/2/messages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -183,28 +204,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
             }
           },
           {
-            "id": 2,
+            "id": "04bf9f20-bfb7-4b7c-b702-38c4ec72fca2",
             "message": "Hello, world! Again!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 2,
-              "name": "老王"
+              "id": 1,
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 1,
-              "name": "Sample Display",
-              "latitude": 40.156,
-              "longitude": 116.283
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/2"
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2/images"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/2/messages?n=0"
+                "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -248,7 +272,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
     ```json
     {
       "id": "1",
-      "name": "无名氏"
+      "name": "test user"
     }
     ```
 
@@ -257,7 +281,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
     ```json
     {
       "id": 1,
-      "name": "无名氏",
+      "name": "test user",
       "_links": {
         "self": {
           "href": "http://localhost:8080/api/users/1"
@@ -292,28 +316,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       "_embedded": {
         "messageList": [
           {
-            "id": 3,
-            "message": "Hello, world! Once more!",
+            "id": "0a901ec0-d11b-46e5-9f87-5a58f6f5f023",
+            "message": "Hello, world!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 2,
-              "name": "老王"
+              "id": 1,
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 2,
-              "name": "Another Sample Display",
-              "latitude": 40.35,
-              "longitude": 116.65
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/3"
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023/images"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/2/messages?n=0"
+                "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/2/messages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -321,28 +348,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
             }
           },
           {
-            "id": 2,
+            "id": "04bf9f20-bfb7-4b7c-b702-38c4ec72fca2",
             "message": "Hello, world! Again!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 2,
-              "name": "老王"
+              "id": 1,
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 1,
-              "name": "Sample Display",
-              "latitude": 40.156,
-              "longitude": 116.283
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/2"
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2/images"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/2/messages?n=0"
+                "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -353,7 +383,7 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       },
       "_links": {
         "self": {
-          "href": "http://localhost:8080/api/users/2/messages?n=0"
+          "href": "http://localhost:8080/api/users/1/messages?n=0"
         }
       }
     }
@@ -478,28 +508,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
       "_embedded": {
         "messageList": [
           {
-            "id": 2,
-            "message": "Hello, world! Again!",
+            "id": "0a901ec0-d11b-46e5-9f87-5a58f6f5f023",
+            "message": "Hello, world!",
             "time": "2021-01-01T00:01:01",
             "user": {
-              "id": 2,
-              "name": "老王"
+              "id": 1,
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 1,
-              "name": "Sample Display",
-              "latitude": 40.156,
-              "longitude": 116.283
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/2"
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/0a901ec0-d11b-46e5-9f87-5a58f6f5f023/images"
               },
               "messagesFromUser": {
-                "href": "http://localhost:8080/api/users/2/messages?n=0"
+                "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -507,28 +540,31 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
             }
           },
           {
-            "id": 1,
-            "message": "Hello, world!",
+            "id": "04bf9f20-bfb7-4b7c-b702-38c4ec72fca2",
+            "message": "Hello, world! Again!",
             "time": "2021-01-01T00:01:01",
             "user": {
               "id": 1,
-              "name": "无名氏"
+              "name": "test user"
             },
             "einkDisplay": {
-              "id": 1,
-              "name": "Sample Display",
-              "latitude": 40.156,
-              "longitude": 116.283
+              "id": 0,
+              "name": "General Display",
+              "latitude": 0.0,
+              "longitude": 0.0
             },
             "_links": {
               "self": {
-                "href": "http://localhost:8080/api/messages/1"
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2"
+              },
+              "images": {
+                "href": "http://localhost:8080/api/messages/04bf9f20-bfb7-4b7c-b702-38c4ec72fca2/images"
               },
               "messagesFromUser": {
                 "href": "http://localhost:8080/api/users/1/messages?n=0"
               },
               "messagesFromDisplay": {
-                "href": "http://localhost:8080/api/displays/1/messsages?n=0"
+                "href": "http://localhost:8080/api/displays/0/messages?n=0"
               },
               "messages": {
                 "href": "http://localhost:8080/api/messages"
@@ -538,8 +574,49 @@ Most APIs are [`RESTful`](https://en.wikipedia.org/wiki/Representational_state_t
         ]
       },
       "_links": {
+    "self": {
+          "href": "http://localhost:8080/api/displays/0/messages?n=0"
+        }
+      }
+    }
+    ```
+    
+### `GET /api/images/{imageId}`: Get a certain image
+
+- Required fields in the URL parameters:
+
+    | KEY     | TYPE   | DESCRIPTION        |
+    | ------- | ------ | ------------------ |
+    | imageId | String | UUID for the image |
+
+    **Note:** A list of `imageId`s of a certain message can be obtained from **GET** `/api/messages/{messageId}/images`.
+
+- You can directly shart downloading the image.
+
+### `POST /api/messages/{messageId}/images`: Add an image to a certain message
+
+- Required fields in the URL parameters:
+
+    | KEY       | TYPE   | DESCRIPTION          |
+    | --------- | ------ | -------------------- |
+    | messageId | String | UUID for the message |
+
+- Use HTTP multipart request to send data:
+
+    | Part Name | Value                |
+    | --------- | -------------------- |
+    | file      | (image file content) |
+
+- An example of successful response:
+
+    ```json
+    {
+      "id": "e5b22ad4-5b29-4a86-9986-7ce79898fdc3",
+      "name": "IMG_0312.jpg",
+      "type": "image/jpeg",
+      "_links": {
         "self": {
-          "href": "http://localhost:8080/api/displays/1/messsages?n=0"
+          "href": "http://localhost:8080/api/images/e5b22ad4-5b29-4a86-9986-7ce79898fdc3"
         }
       }
     }
