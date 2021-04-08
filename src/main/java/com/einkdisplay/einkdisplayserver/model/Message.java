@@ -1,13 +1,16 @@
 package com.einkdisplay.einkdisplayserver.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 public class Message implements Comparable<Message> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private String message;
     private LocalDateTime time;
     @ManyToOne
@@ -38,7 +41,7 @@ public class Message implements Comparable<Message> {
         this.display = eInkDisplay;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -64,7 +67,7 @@ public class Message implements Comparable<Message> {
         return time;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

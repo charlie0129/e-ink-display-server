@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Long> {
+public interface MessageRepository extends JpaRepository<Message, String> {
     ArrayList<Message> findByDisplayOrderByIdDesc(EInkDisplay display);
     ArrayList<Message> findByUserOrderByIdDesc(User user);
     ArrayList<Message> findTop20ByUserOrderByIdDesc(User user);

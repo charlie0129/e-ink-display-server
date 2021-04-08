@@ -14,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +46,7 @@ public class ImageFileController {
     }
 
     @PostMapping("/api/messages/{messageId}/images")
-    public ResponseEntity<?> addImage(@PathVariable Long messageId,
+    public ResponseEntity<?> addImage(@PathVariable String messageId,
                                       @RequestParam("file") MultipartFile multipartFile) {
 
         ImageFile imageFile;
@@ -88,8 +87,21 @@ public class ImageFileController {
                              .body(imageFile.getData());
     }
 
+    @GetMapping("/api/images")
+    public CollectionModel<EntityModel<ImageFile>> getImageAll() {
+        List<EntityModel<ImageFile>> images =
+                imageFileRepository.findAll()
+                                   .stream()
+                                   .map(imageFileModelAssembler::toModel)
+                                   .collect(Collectors.toList());
+
+        return CollectionModel.of(images,
+                                  linkTo(methodOn(ImageFileController.class).getImageAll())
+                                          .withSelfRel());
+    }
+
     @GetMapping("/api/messages/{messageId}/images/{imageId}")
-    public ResponseEntity<?> getImageByMessage(@PathVariable Long messageId,
+    public ResponseEntity<?> getImageByMessage(@PathVariable String messageId,
                                                @PathVariable String imageId) {
         ImageFile imageFile = imageFileRepository
                 .findById(imageId)
@@ -105,7 +117,7 @@ public class ImageFileController {
     }
 
     @GetMapping("/api/messages/{messageId}/images")
-    public CollectionModel<EntityModel<ImageFile>> getImageAllByMessage(@PathVariable Long messageId) {
+    public CollectionModel<EntityModel<ImageFile>> getImageAllByMessage(@PathVariable String messageId) {
 
         Message referencedMessage = messageRepository.findById(messageId)
                                                      .orElseThrow(
