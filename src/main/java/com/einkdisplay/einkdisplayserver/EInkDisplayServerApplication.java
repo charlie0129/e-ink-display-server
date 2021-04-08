@@ -2,6 +2,7 @@ package com.einkdisplay.einkdisplayserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
 public class EInkDisplayServerApplication {
@@ -10,4 +11,5 @@ public class EInkDisplayServerApplication {
 
         SpringApplication.run(EInkDisplayServerApplication.class, args);
     }
+
 }

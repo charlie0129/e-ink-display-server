@@ -1,5 +1,7 @@
 package com.einkdisplay.einkdisplayserver;
 
+import com.einkdisplay.einkdisplayserver.model.EInkDisplay;
+import com.einkdisplay.einkdisplayserver.repository.EInkDisplayRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
