@@ -22,6 +22,10 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 - [x] Link messages to users using many-to-one model
 
+- [x] Attach images to a certain message
+
+- [x] Implement image-related APIs
+
 - [ ] Require user identification when committing and retrieving messages
 
 - [ ] Security improvements
