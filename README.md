@@ -26,6 +26,8 @@ Back end for BUPT ChuYan project "e-ink Display".
 
 - [x] Implement image-related APIs
 
+- [ ] Add a field in messages that indicates if publication is allowed
+
 - [ ] Require user identification when committing and retrieving messages
 
 - [ ] Security improvements
