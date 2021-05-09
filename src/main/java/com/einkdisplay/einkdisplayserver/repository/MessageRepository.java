@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, String> {
-    ArrayList<Message> findByDisplayOrderByIdDesc(EInkDisplay display);
-    ArrayList<Message> findByUserOrderByIdDesc(User user);
+    ArrayList<Message> findByDisplayOrderByTimeDesc(EInkDisplay display);
+    ArrayList<Message> findByUserOrderByTimeDesc(User user);
     ArrayList<Message> findTop20ByUserOrderByIdDesc(User user);
     ArrayList<Message> findAll();
     ArrayList<Message> findByOrderByIdDesc();

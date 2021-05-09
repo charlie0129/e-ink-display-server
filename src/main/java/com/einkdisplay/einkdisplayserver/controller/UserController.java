@@ -121,7 +121,7 @@ public class UserController {
 
         List<EntityModel<Message>> messages;
 
-        messages = messageRepository.findByUserOrderByIdDesc(referencedUser)
+        messages = messageRepository.findByUserOrderByTimeDesc(referencedUser)
                                     .stream()
                                     .map(messageModelAssembler::toModel)
                                     .collect(Collectors.toList());

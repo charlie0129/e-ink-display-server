@@ -119,7 +119,7 @@ public class EInkDisplayController {
 
         List<EntityModel<Message>> messages;
 
-        messages = messageRepository.findByDisplayOrderByIdDesc(referencedDisplay)
+        messages = messageRepository.findByDisplayOrderByTimeDesc(referencedDisplay)
                                     .stream()
                                     .map(messageModelAssembler::toModel)
                                     .collect(Collectors.toList());
